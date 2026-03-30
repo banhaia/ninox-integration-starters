@@ -1,0 +1,53 @@
+[
+  {
+    "codigo": "SKU-001",
+    "descripcion": "Remera negra basica",
+    "categorias": [
+      {
+        "codigo": "remeras",
+        "nombre": "Remeras"
+      }
+    ],
+    "etiquetas": [
+      {
+        "codigo": "nuevo",
+        "nombre": "Nuevo"
+      }
+    ],
+    "precios": [
+      {
+        "nombre": "Lista",
+        "monto": 19990,
+        "moneda": "ARS"
+      }
+    ],
+    "variantes": [
+      {
+        "codigo": "SKU-001-M",
+        "nombre": "Talle M",
+        "stock": 4,
+        "precios": [
+          {
+            "nombre": "Lista",
+            "monto": 19990,
+            "moneda": "ARS"
+          }
+        ]
+      }
+    ],
+    "stock": 4
+  },
+  {
+    "codigo": "SKU-002",
+    "descripcion": "Gorra beige",
+    "categorias": [
+      "Accesorios"
+    ],
+    "etiquetas": [
+      "temporada"
+    ],
+    "precio": 14990,
+    "stockDisponible": 9
+  }
+]
+

@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "Ninox Integration Starters",
+    "_postman_id": "5f1a8e59-2015-4b4e-9e9a-9e9a20150318",
+    "description": "Requests base para integraciones con Ninox",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-NX-TOKEN",
+            "value": "{{ninox_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{ninox_base_url}}/integraciones/Terceros/GetData",
+          "host": [
+            "{{ninox_base_url}}"
+          ],
+          "path": [
+            "integraciones",
+            "Terceros",
+            "GetData"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Order Placeholder",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-NX-TOKEN",
+            "value": "{{ninox_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"externalId\": \"demo-1\",\n  \"customer\": {\n    \"name\": \"Cliente Demo\",\n    \"email\": \"demo@example.com\"\n  },\n  \"items\": [\n    {\n      \"productCode\": \"SKU-001\",\n      \"quantity\": 1\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{ninox_base_url}}/integraciones/Terceros/CreateOrder",
+          "host": [
+            "{{ninox_base_url}}"
+          ],
+          "path": [
+            "integraciones",
+            "Terceros",
+            "CreateOrder"
+          ]
+        },
+        "description": "Placeholder. Ajustar path y payload cuando se confirme la documentacion exacta del endpoint de pedidos."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "ninox_base_url",
+      "value": "https://api.test-ninox.com.ar"
+    },
+    {
+      "key": "ninox_token",
+      "value": ""
+    }
+  ]
+}
+

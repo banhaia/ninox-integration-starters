@@ -1,0 +1,35 @@
+{
+  "name": "ninox-node-typescript-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starter template para integraciones con Ninox",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --env-file=.env --watch --import=tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "ninox",
+    "integration",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}

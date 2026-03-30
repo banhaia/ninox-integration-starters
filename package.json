@@ -1,0 +1,13 @@
+{
+  "name": "ninox-integration-starters",
+  "private": true,
+  "workspaces": [
+    "templates/node-typescript",
+    "examples/stock-dashboard-app"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace ninox-node-typescript-template && npm run build --workspace @ninox/stock-dashboard-app",
+    "dev": "npm run build --workspace ninox-node-typescript-template && npm run dev --workspace @ninox/stock-dashboard-app",
+    "start": "npm run build --workspace ninox-node-typescript-template && npm run start --workspace @ninox/stock-dashboard-app"
+  }
+}
