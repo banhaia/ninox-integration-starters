@@ -64,8 +64,19 @@ export class CatalogSyncService {
 
       return { started: true, message: `Sync completed from ${source.id}.` };
     } catch (error) {
-      this.syncState.syncError = error instanceof Error ? error.message : "Unknown sync error";
-      return { started: false, message: this.syncState.syncError };
+      const message = error instanceof Error ? error.message : "Unknown sync error";
+      this.syncState.syncError = message;
+
+      console.error("[sync] Error al sincronizar catálogo:");
+      console.error("  message:", message);
+      if (error instanceof Error && error.cause) {
+        console.error("  cause:", error.cause);
+      }
+      if (error instanceof Error && error.stack) {
+        console.error("  stack:", error.stack);
+      }
+
+      return { started: false, message };
     } finally {
       this.syncState.syncInProgress = false;
     }

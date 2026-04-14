@@ -5,6 +5,10 @@ import { fileURLToPath } from "node:url";
 import { apiRouter } from "./routes/api.js";
 import { catalogSyncService } from "./services/container.js";
 
+if (process.env.NODE_TLS_REJECT_UNAUTHORIZED === "0") {
+  console.warn("[security] NODE_TLS_REJECT_UNAUTHORIZED=0 — TLS verification disabled (solo desarrollo local).");
+}
+
 const port = Number(process.env.PORT ?? 3030);
 const app = express();
 const __filename = fileURLToPath(import.meta.url);

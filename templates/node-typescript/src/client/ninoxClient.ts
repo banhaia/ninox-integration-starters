@@ -106,7 +106,8 @@ export class NinoxClient {
       }
 
       throw new Error(
-        `Ninox request failed: ${error instanceof Error ? error.message : "unknown error"}`
+        `Ninox request failed: ${error instanceof Error ? error.message : "unknown error"}`,
+        { cause: error }
       );
     } finally {
       clearTimeout(timeoutId);
