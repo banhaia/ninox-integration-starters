@@ -58,12 +58,30 @@ export class NinoxClient {
     );
   }
 
+  async getMediosPago(): Promise<unknown> {
+    return this.request("/integraciones/terceros/medios-pago", { method: "GET" });
+  }
+
+  async createPedido(payload: unknown): Promise<unknown> {
+    return this.request("/integraciones/Terceros/Pedido", {
+      method: "POST",
+      body: JSON.stringify(payload)
+    });
+  }
+
   private async request(path: string, init: RequestInit): Promise<unknown> {
+    const url = `${this.baseUrl}${path}`;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeoutMs);
+    const start = Date.now();
+
+    console.log(`[ninox] → ${init.method ?? "GET"} ${url}`);
+    if (init.body) {
+      console.log(`[ninox]   body: ${String(init.body).slice(0, 500)}`);
+    }
 
     try {
-      const response = await this.fetchImpl(`${this.baseUrl}${path}`, {
+      const response = await this.fetchImpl(url, {
         ...init,
         headers: {
           "Content-Type": "application/json",
@@ -74,8 +92,10 @@ export class NinoxClient {
       });
 
       const rawBody = await response.text();
+      console.log(`[ninox] ← ${response.status} ${url} (${Date.now() - start}ms)`);
 
       if (!response.ok) {
+        console.log(`[ninox]   error body: ${rawBody.slice(0, 500)}`);
         const message = rawBody?.trim()
           ? `Ninox request failed with status ${response.status}: ${rawBody.trim()}`
           : `Ninox request failed with status ${response.status}`;
@@ -102,6 +122,7 @@ export class NinoxClient {
       }
 
       if (error instanceof Error && error.name === "AbortError") {
+        console.log(`[ninox]   timeout after ${this.timeoutMs}ms: ${url}`);
         throw new Error(`Ninox request timed out after ${this.timeoutMs}ms`);
       }
 

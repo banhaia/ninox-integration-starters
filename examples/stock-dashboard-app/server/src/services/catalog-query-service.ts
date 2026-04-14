@@ -127,6 +127,7 @@ export function buildFacets(products: Product[]): { colors: string[]; sizes: str
 }
 
 export function buildStockRows(products: Product[]): Array<{
+  articuloId: number | null;
   code: string;
   name: string;
   description?: string;
@@ -136,13 +137,16 @@ export function buildStockRows(products: Product[]): Array<{
   price: number | null;
   colors: string[];
   sizes: string[];
-  variants: Array<{ code?: string; name: string; stock: number | null }>;
+  variants: Array<{ code?: string; name: string; stock: number | null; talleId?: number; colorId?: number }>;
 }> {
   return products.map((product) => {
     const colors = unique(product.variants.flatMap((variant) => collectColors(product, variant)));
     const sizes = unique(product.variants.flatMap((variant) => collectSizes(product, variant)));
+    const raw = product.raw as Record<string, unknown>;
+    const articuloId = typeof raw.articuloId === "number" ? raw.articuloId : null;
 
     return {
+      articuloId,
       code: product.code,
       name: product.name,
       description: product.description,
@@ -152,11 +156,16 @@ export function buildStockRows(products: Product[]): Array<{
       price: product.prices[0]?.amount ?? null,
       colors,
       sizes,
-      variants: product.variants.map((variant) => ({
-        code: variant.code ?? variant.sku,
-        name: variant.name,
-        stock: variant.stock ?? null
-      }))
+      variants: product.variants.map((variant) => {
+        const vraw = variant.raw as Record<string, unknown>;
+        return {
+          code: variant.code ?? variant.sku,
+          name: variant.name,
+          stock: variant.stock ?? null,
+          talleId: typeof vraw.talleId === "number" ? vraw.talleId : undefined,
+          colorId: typeof vraw.colorId === "number" ? vraw.colorId : undefined
+        };
+      })
     };
   });
 }

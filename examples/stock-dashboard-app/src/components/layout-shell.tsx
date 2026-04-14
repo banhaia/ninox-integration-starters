@@ -23,7 +23,9 @@ export function LayoutShell(): JSX.Element {
         <nav className="flex gap-2 rounded-2xl bg-white/70 p-1">
           {[
             { to: "/", label: "Home" },
-            { to: "/stock", label: "Stock" }
+            { to: "/stock", label: "Stock" },
+            { to: "/preventas", label: "Preventas" },
+            { to: "/historial", label: "Historial" }
           ].map((item) => (
             <NavLink
               key={item.to}

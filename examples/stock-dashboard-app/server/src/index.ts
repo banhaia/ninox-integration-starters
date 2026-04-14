@@ -16,6 +16,16 @@ const __dirname = path.dirname(__filename);
 const clientDistPath = path.resolve(__dirname, "..", "client");
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on("finish", () => {
+    const ms = Date.now() - start;
+    console.log(`[http] ${req.method} ${req.path} → ${res.statusCode} (${ms}ms)`);
+  });
+  next();
+});
+
 app.use("/api", apiRouter);
 if (fs.existsSync(clientDistPath)) {
   app.use(express.static(clientDistPath));
