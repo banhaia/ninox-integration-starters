@@ -12,6 +12,8 @@ import {
   deleteConversation
 } from "../services/conversation-service.js";
 import { chatWithOllama, getOllamaConfig } from "../services/ollama-service.js";
+import { buildStockContext } from "../services/stock-context-service.js";
+import { stockSyncService } from "../services/stock-container.js";
 import type { KnowledgeBase, OllamaMessage } from "../types/index.js";
 
 export const apiRouter = Router();
@@ -97,8 +99,10 @@ apiRouter.post("/chat", chatRateLimiter, async (req, res) => {
       conv = await createConversation(message.trim());
     }
 
-    // Build system message from knowledge base
-    const systemContent = buildSystemPrompt(kb);
+    const stockContext = await getStockContextForMessage(message.trim());
+
+    // Build system message from knowledge base and stock cache
+    const systemContent = buildSystemPrompt(kb, stockContext);
 
     // Build Ollama messages: system + history + new user message
     const ollamaMessages: OllamaMessage[] = [
@@ -171,13 +175,51 @@ apiRouter.delete("/conversations/:id", async (req, res) => {
 
 // ── Status ────────────────────────────────────────────────────────────────────
 
-apiRouter.get("/status", (_req, res) => {
-  res.json({ ok: true, ollama: getOllamaConfig() });
+apiRouter.get("/status", async (_req, res) => {
+  try {
+    res.json({ ok: true, ollama: getOllamaConfig(), stock: await stockSyncService.getStatus() });
+  } catch (error) {
+    res.json({ ok: true, ollama: getOllamaConfig() });
+  }
+});
+
+// ── Stock ─────────────────────────────────────────────────────────────────────
+
+apiRouter.get("/stock/status", async (_req, res) => {
+  try {
+    res.json(await stockSyncService.getStatus());
+  } catch (error) {
+    res.status(500).json({ error: "Error al leer el estado de stock" });
+  }
+});
+
+apiRouter.post("/stock/sync", async (_req, res) => {
+  try {
+    const result = await stockSyncService.syncNow();
+    res.status(result.started ? 202 : 409).json(result);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Error desconocido";
+    res.status(500).json({ error: `Error al sincronizar stock: ${message}` });
+  }
 });
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function buildSystemPrompt(kb: KnowledgeBase): string {
+async function getStockContextForMessage(message: string): Promise<string> {
+  try {
+    const products = await stockSyncService.getProducts();
+    return buildStockContext(products, message);
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : "Error desconocido";
+    console.error(`[stock-context] Error al construir contexto de stock: ${msg}`);
+    return [
+      "--- STOCK DISPONIBLE ---",
+      "No se pudo leer el stock local. No inventes disponibilidad, precios, talles ni colores."
+    ].join("\n");
+  }
+}
+
+function buildSystemPrompt(kb: KnowledgeBase, stockContext: string): string {
   const parts: string[] = [kb.systemPrompt];
 
   parts.push(`\n\n--- INFORMACIÓN DE LA EMPRESA ---`);
@@ -198,6 +240,8 @@ function buildSystemPrompt(kb: KnowledgeBase): string {
   if (kb.ubicaciones.length > 0) {
     parts.push(`\nUbicaciones:\n${kb.ubicaciones.map((u) => `- ${u}`).join("\n")}`);
   }
+
+  parts.push(`\n${stockContext}`);
 
   return parts.join("\n");
 }

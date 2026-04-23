@@ -3,4 +3,4 @@ dist/
 .env
 *.log
 examples/stock-dashboard-app/data/
-
+examples/chatbot-ollama-app/data/

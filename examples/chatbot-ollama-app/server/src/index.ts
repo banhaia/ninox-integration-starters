@@ -1,8 +1,10 @@
+import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 import express from "express";
 import { fileURLToPath } from "node:url";
 import { apiRouter } from "./routes/api.js";
+import { stockSyncService } from "./services/stock-container.js";
 
 const port = Number(process.env.PORT ?? 3031);
 const app = express();
@@ -34,6 +36,11 @@ if (fs.existsSync(clientDistPath)) {
     response.sendFile(path.join(clientDistPath, "index.html"));
   });
 }
+
+stockSyncService.init().catch((error) => {
+  const message = error instanceof Error ? error.message : "Error desconocido";
+  console.error(`[stock-sync] Error al inicializar cache de stock: ${message}`);
+});
 
 app.listen(port, () => {
   console.log(`Chatbot Ollama server running at http://localhost:${port}`);

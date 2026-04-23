@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "lucide-react": "^0.511.0",
+    "ninox-node-typescript-template": "^0.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",

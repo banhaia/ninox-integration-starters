@@ -17,7 +17,26 @@ Copiá `.env.example` a `.env` y ajustá los valores:
 PORT=3031
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2
+CATALOG_SYNC_INTERVAL_MS=600000
+NINOX_BASE_URL=https://api.test-ninox.com.ar
+NINOX_TOKEN=
+NINOX_TIMEOUT_MS=10000
+STOCK_CONTEXT_MAX_PRODUCTS=8
 ```
+
+## Stock Ninox
+
+El backend puede sincronizar stock desde Ninox y guardarlo en `data/stock-cache.json`.
+Al responder un chat, busca productos relevantes para el mensaje del usuario y agrega ese resumen al contexto de Ollama.
+
+Endpoints:
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/stock/status` | Estado de sincronización y cantidad de productos cacheados |
+| `POST` | `/api/stock/sync` | Ejecuta una sincronización manual contra Ninox |
+
+Si `NINOX_BASE_URL` o `NINOX_TOKEN` no están configurados, el chatbot sigue funcionando sin stock y el estado informa que no hay fuente configurada.
 
 ## Instalación y desarrollo
 
@@ -56,6 +75,7 @@ chatbot-ollama-app/
 │   └── ...
 └── data/                           # Generado en runtime
     ├── knowledge-base.json
+    ├── stock-cache.json
     └── conversations/
         └── conv_*.json
 ```
@@ -71,6 +91,8 @@ chatbot-ollama-app/
 | `GET` | `/api/conversations/:id` | Obtener conversación completa |
 | `DELETE` | `/api/conversations/:id` | Eliminar conversación |
 | `GET` | `/api/status` | Estado del servidor y configuración de Ollama |
+| `GET` | `/api/stock/status` | Estado del cache local de stock |
+| `POST` | `/api/stock/sync` | Sincronizar stock desde Ninox |
 
 ## Ollama en la nube
 

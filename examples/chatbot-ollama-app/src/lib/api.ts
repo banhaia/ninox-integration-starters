@@ -41,6 +41,22 @@ export interface ChatResponse {
 export interface StatusResponse {
   ok: boolean;
   ollama: { baseUrl: string; model: string };
+  stock?: StockStatusResponse;
+}
+
+export interface StockStatusResponse {
+  syncInProgress: boolean;
+  lastSyncAt: string | null;
+  lastSyncSource: string | null;
+  syncError: string | null;
+  configuredSourceIds: string[];
+  hasConfiguredSources: boolean;
+  productCount: number;
+}
+
+export interface StockSyncResponse {
+  started: boolean;
+  message: string;
 }
 
 // ── Request helper ────────────────────────────────────────────────────────────
@@ -96,4 +112,12 @@ export function deleteConversation(id: string): Promise<{ ok: boolean }> {
 
 export function getStatus(): Promise<StatusResponse> {
   return request("/api/status");
+}
+
+export function getStockStatus(): Promise<StockStatusResponse> {
+  return request("/api/stock/status");
+}
+
+export function syncStock(): Promise<StockSyncResponse> {
+  return request("/api/stock/sync", { method: "POST" });
 }
