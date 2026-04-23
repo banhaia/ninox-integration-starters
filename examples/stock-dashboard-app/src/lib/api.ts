@@ -1,3 +1,5 @@
+import type { ProductsPayload, StockRow } from "@ninox/stock-ui";
+
 export interface DashboardSummary {
   hasData: boolean;
   totalProducts: number;
@@ -26,39 +28,7 @@ export interface DashboardPayload {
   };
 }
 
-export interface StockRow {
-  articuloId: number | null;
-  code: string;
-  name: string;
-  description?: string;
-  stock: number | null;
-  categories: string[];
-  tags: string[];
-  price: number | null;
-  colors: string[];
-  sizes: string[];
-  variants: Array<{
-    code?: string;
-    name: string;
-    stock: number | null;
-    talleId?: number;
-    colorId?: number;
-  }>;
-}
-
-export interface ProductsPayload {
-  items: StockRow[];
-  total: number;
-  filters: {
-    search: string;
-    color: string;
-    size: string;
-  };
-  facets: {
-    colors: string[];
-    sizes: string[];
-  };
-}
+export type { ProductsPayload, StockRow };
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {

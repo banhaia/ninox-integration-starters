@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": [
     "templates/node-typescript",
+    "packages/stock-ui",
     "examples/stock-dashboard-app",
     "examples/chatbot-ollama-app"
   ],

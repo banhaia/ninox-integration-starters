@@ -38,7 +38,7 @@ Publicar catálogo desde Ninox y enviar pedidos de vuelta. Referencia: `examples
 
 ### Chatbot con stock
 
-Consultar productos, precios y disponibilidad por texto. Referencia: `examples/chatbot-stock/`.
+Consultar productos, precios y disponibilidad por texto. Referencias: `examples/chatbot-stock/` para script simple y `examples/chatbot-ollama-app/` para app full-stack con base de conocimiento, contexto de stock y vista `/stock`.
 
 ### Sistema externo
 
@@ -94,7 +94,9 @@ La API tiene un límite de **10 minutos mínimo entre consultas**. Estrategia re
 3. Refresco periódico cada ≥10 minutos
 4. Webhooks opcionales para cambios incrementales
 
-Referencia de sync con caché: `examples/stock-dashboard-app/server/src/services/catalog-sync-service.ts`.
+Referencias de sync con caché: `examples/stock-dashboard-app/server/src/services/catalog-sync-service.ts` y `examples/chatbot-ollama-app/server/src/services/stock-sync-service.ts`.
+
+Si necesitás mostrar el stock cacheado en una UI React, `packages/stock-ui` provee el componente compartido `StockCatalogView`, usado por el dashboard y el chatbot Ollama.
 
 ### Paso 5 — Enviar pedidos
 
@@ -123,6 +125,9 @@ Desde la raíz del repo:
 ```bash
 # App full-stack de ejemplo (frontend + backend)
 npm run dev
+
+# Chatbot Ollama con base de conocimiento y stock
+npm run dev:chatbot
 
 # Scripts simples
 node examples/chatbot-stock/run.js "remera negra"

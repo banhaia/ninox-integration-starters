@@ -1,3 +1,5 @@
+import type { ProductsPayload } from "@ninox/stock-ui";
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface KnowledgeBase {
@@ -120,4 +122,8 @@ export function getStockStatus(): Promise<StockStatusResponse> {
 
 export function syncStock(): Promise<StockSyncResponse> {
   return request("/api/stock/sync", { method: "POST" });
+}
+
+export function getStockProducts(params: URLSearchParams): Promise<ProductsPayload> {
+  return request(`/api/stock/products?${params.toString()}`);
 }

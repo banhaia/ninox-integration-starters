@@ -4,6 +4,7 @@ import { HomePage } from "@/routes/home-page";
 import { KnowledgeBasePage } from "@/routes/knowledge-base-page";
 import { ChatPage } from "@/routes/chat-page";
 import { ConversationsPage } from "@/routes/conversations-page";
+import { StockPage } from "@/routes/stock-page";
 
 export function App(): JSX.Element {
   return (
@@ -12,6 +13,7 @@ export function App(): JSX.Element {
         <Route element={<LayoutShell />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/knowledge-base" element={<KnowledgeBasePage />} />
+          <Route path="/stock" element={<StockPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/chat/:conversationId" element={<ChatPage />} />
           <Route path="/conversations" element={<ConversationsPage />} />

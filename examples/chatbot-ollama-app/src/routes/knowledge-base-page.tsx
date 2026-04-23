@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Plus, Trash2, X } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -95,6 +96,18 @@ export function KnowledgeBasePage(): JSX.Element {
           {saving ? "Guardando..." : saved ? "¡Guardado!" : "Guardar cambios"}
         </Button>
       </div>
+
+      <Card className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 className="text-base font-semibold">Stock cargado</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Revisá el catálogo sincronizado que se incorpora como contexto en el chat.
+          </p>
+        </div>
+        <Link to="/stock">
+          <Button type="button" variant="secondary">Ver stock</Button>
+        </Link>
+      </Card>
 
       {error && (
         <Card className="border border-red-200 bg-red-50 text-red-700 text-sm">

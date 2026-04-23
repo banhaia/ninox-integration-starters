@@ -6,6 +6,7 @@ Chatbot conversacional con base de conocimiento personalizable, integrado con [O
 
 - **Base de conocimiento editable**: nombre de empresa, rubros, descripción de productos, quiénes somos, ubicaciones y system prompt.
 - **Chat en tiempo real**: interfaz de chat que responde usando el contexto de tu empresa.
+- **Stock visible**: vista `/stock` con búsqueda, filtros de color/talle y datos del cache local.
 - **Historial persistente**: todas las conversaciones se guardan como JSON en disco.
 - **Ollama flexible**: apunta a una instancia local (`http://localhost:11434`) o a un servidor remoto mediante variable de entorno.
 
@@ -34,6 +35,7 @@ Endpoints:
 | Método | Ruta | Descripción |
 |--------|------|-------------|
 | `GET` | `/api/stock/status` | Estado de sincronización y cantidad de productos cacheados |
+| `GET` | `/api/stock/products` | Listado filtrable de stock para la vista `/stock` |
 | `POST` | `/api/stock/sync` | Ejecuta una sincronización manual contra Ninox |
 
 Si `NINOX_BASE_URL` o `NINOX_TOKEN` no están configurados, el chatbot sigue funcionando sin stock y el estado informa que no hay fuente configurada.
@@ -64,12 +66,14 @@ chatbot-ollama-app/
 │   ├── services/
 │   │   ├── knowledge-base-service.ts  # Lee/escribe knowledge-base.json
 │   │   ├── conversation-service.ts    # Gestiona conversaciones en disco
-│   │   └── ollama-service.ts          # Cliente HTTP para Ollama
+│   │   ├── ollama-service.ts          # Cliente HTTP para Ollama
+│   │   └── stock-query-service.ts     # Filas/facets para la vista de stock
 │   └── types/index.ts
 ├── src/
 │   ├── routes/
 │   │   ├── home-page.tsx
 │   │   ├── knowledge-base-page.tsx
+│   │   ├── stock-page.tsx
 │   │   ├── chat-page.tsx
 │   │   └── conversations-page.tsx
 │   └── ...
@@ -92,6 +96,7 @@ chatbot-ollama-app/
 | `DELETE` | `/api/conversations/:id` | Eliminar conversación |
 | `GET` | `/api/status` | Estado del servidor y configuración de Ollama |
 | `GET` | `/api/stock/status` | Estado del cache local de stock |
+| `GET` | `/api/stock/products` | Productos de stock con filtros `search`, `color` y `size` |
 | `POST` | `/api/stock/sync` | Sincronizar stock desde Ninox |
 
 ## Ollama en la nube

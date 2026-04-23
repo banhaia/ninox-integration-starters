@@ -28,6 +28,8 @@ Un kit de arranque para conectar cualquier app externa a la **integración de te
 - **Normalización tolerante** — mapea la respuesta de Ninox a un modelo local limpio, sin acoplarse a nombres exactos
 - **Caché local con sync** — snapshot del catálogo en disco, refresco ≥ 10 min según restricciones de la API
 - **Dashboard operativo completo** — React 19 + Vite + Tailwind + Express con rutas de Stock, Preventas e Historial
+- **Chatbot con stock visible** — ejemplo Ollama con base de conocimiento, contexto de stock y vista filtrable del catálogo cacheado
+- **UI compartida de stock** — paquete React reutilizable para mostrar el mismo stock en dashboard y chatbot
 - **Flujo de preventa** — creación de pedidos contra Ninox ERP con validación de totales y métodos de pago
 - **Monorepo workspace** — un solo `npm install` levanta template + app
 - **Mocks offline** — `shared/sample-responses/` para desarrollar sin token
@@ -88,7 +90,9 @@ npm run build && npm start
 | Path | Descripción |
 |------|-------------|
 | `templates/node-typescript` | Cliente base: `NinoxClient`, normalización, tipos TypeScript |
+| `packages/stock-ui` | Componentes React compartidos para listado/filtros de stock |
 | `examples/stock-dashboard-app` | App full-stack React + Express — dashboard operativo completo |
+| `examples/chatbot-ollama-app` | Chatbot full-stack con Ollama, base de conocimiento y stock cacheado visible |
 | `examples/chatbot-stock` | Búsqueda de productos por texto para bots o asistentes |
 | `examples/ecommerce-sync` | Mapeo del catálogo a una estructura simple para storefronts |
 | `examples/create-order` | Placeholder del flujo de envío de pedidos |
@@ -127,6 +131,15 @@ node ../../examples/create-order/run.js
 ```
 
 La UI solo habla con el backend local. El token de Ninox nunca sale del servidor.
+
+## UI compartida de stock
+
+`packages/stock-ui` expone `StockCatalogView` y tipos de stock (`ProductsPayload`, `StockRow`) para que distintos ejemplos muestren el mismo catálogo cacheado sin duplicar componentes. Cada app conserva su backend local y sólo debe proveer una función `loadProducts(params)` que devuelva el shape `{ items, total, filters, facets }`.
+
+Actualmente lo usan:
+
+- `examples/stock-dashboard-app/src/routes/stock-page.tsx` contra `/api/products`.
+- `examples/chatbot-ollama-app/src/routes/stock-page.tsx` contra `/api/stock/products`.
 
 ---
 

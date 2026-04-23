@@ -14,6 +14,11 @@ import {
 import { chatWithOllama, getOllamaConfig } from "../services/ollama-service.js";
 import { buildStockContext } from "../services/stock-context-service.js";
 import { stockSyncService } from "../services/stock-container.js";
+import {
+  buildFacets,
+  buildStockRows,
+  filterStockRows
+} from "../services/stock-query-service.js";
 import type { KnowledgeBase, OllamaMessage } from "../types/index.js";
 
 export const apiRouter = Router();
@@ -190,6 +195,31 @@ apiRouter.get("/stock/status", async (_req, res) => {
     res.json(await stockSyncService.getStatus());
   } catch (error) {
     res.status(500).json({ error: "Error al leer el estado de stock" });
+  }
+});
+
+apiRouter.get("/stock/products", async (req, res) => {
+  try {
+    const products = await stockSyncService.getProducts();
+    const rows = buildStockRows(products);
+    const filtered = filterStockRows(rows, {
+      search: typeof req.query.search === "string" ? req.query.search : "",
+      color: typeof req.query.color === "string" ? req.query.color : "",
+      size: typeof req.query.size === "string" ? req.query.size : ""
+    });
+
+    res.json({
+      items: filtered,
+      total: filtered.length,
+      filters: {
+        search: typeof req.query.search === "string" ? req.query.search : "",
+        color: typeof req.query.color === "string" ? req.query.color : "",
+        size: typeof req.query.size === "string" ? req.query.size : ""
+      },
+      facets: buildFacets(products)
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Error al leer productos de stock" });
   }
 });
 

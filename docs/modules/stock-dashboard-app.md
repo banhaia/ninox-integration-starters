@@ -25,7 +25,7 @@ Ejemplo full-stack para consultar catálogo/stock de Ninox, cachearlo localmente
 - `examples/stock-dashboard-app/src/app.tsx`: router React con rutas de dashboard, stock, preventas e historial.
 - `examples/stock-dashboard-app/src/lib/api.ts`: cliente fetch tipado para todos los endpoints del backend.
 - `examples/stock-dashboard-app/src/routes/home-page.tsx`: KPIs, facetas y estado de sincronización.
-- `examples/stock-dashboard-app/src/routes/stock-page.tsx`: tabla/listado de stock con filtros.
+- `examples/stock-dashboard-app/src/routes/stock-page.tsx`: monta la UI compartida de stock contra `/api/products`.
 - `examples/stock-dashboard-app/src/routes/preventa-page.tsx`: propietario del formulario de preventa/venta y armado del payload.
 - `examples/stock-dashboard-app/src/routes/history-page.tsx`: historial de operaciones.
 - `examples/stock-dashboard-app/src/components/preventa/`: componentes del formulario de pedido: búsqueda de artículos, cliente, líneas, totales, pagos y resultado.
@@ -36,6 +36,11 @@ Ejemplo full-stack para consultar catálogo/stock de Ninox, cachearlo localmente
 - `templates/node-typescript/src/client/ninoxClient.ts`: cliente HTTP Ninox con token, timeout y endpoints `GetData`, medios de pago y pedido.
 - `templates/node-typescript/src/services/productService.ts`: normalización de respuestas Ninox a `Product[]`.
 - `templates/node-typescript/src/types/product.ts`: tipos base de producto, variante, precio, categoría y tags.
+
+### UI Compartida
+
+- `packages/stock-ui/src/stock-catalog-view.tsx`: listado/filtros de stock reutilizados por dashboard y chatbot.
+- `packages/stock-ui/src/types.ts`: tipos frontend compartidos para el payload de productos.
 
 ## Flujos Principales
 
@@ -70,7 +75,7 @@ Ejemplo full-stack para consultar catálogo/stock de Ninox, cachearlo localmente
 ## Puntos de Extensión
 
 - Nueva fuente de catálogo: implementar `CatalogSource` y registrarla en `services/container.ts`.
-- Nueva vista/filtro de stock: extender `catalog-query-service.ts` y el cliente tipado en `src/lib/api.ts`.
+- Nueva vista/filtro de stock: extender `catalog-query-service.ts`, el cliente tipado y, si aplica, el contrato de `@ninox/stock-ui`.
 - Nuevos campos de pedido: actualizar tipos en `server/src/types/preventas.ts`, construcción en `preventa-page.tsx` y componentes del formulario.
 - Persistencia alternativa: reemplazar `CatalogRepository` o `preventa-history-service.ts` por SQLite/Redis sin tocar la UI si se conserva el contrato del router.
 

@@ -24,6 +24,7 @@ export function LayoutShell(): JSX.Element {
           {[
             { to: "/", label: "Inicio" },
             { to: "/knowledge-base", label: "Base de conocimiento" },
+            { to: "/stock", label: "Stock" },
             { to: "/chat", label: "Chat" },
             { to: "/conversations", label: "Historial" }
           ].map((item) => (

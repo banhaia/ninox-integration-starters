@@ -13,6 +13,7 @@
     "start": "node dist/server/index.js"
   },
   "dependencies": {
+    "@ninox/stock-ui": "^0.1.0",
     "clsx": "^2.1.1",
     "express": "^4.21.2",
     "lucide-react": "^0.511.0",

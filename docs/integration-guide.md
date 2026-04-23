@@ -106,6 +106,8 @@ No consultar la API en cada request del usuario final. Implementar caché local 
 - Redis/Memcached para alta concurrencia
 - Base de datos relacional para integraciones complejas
 
+Para frontends React, `packages/stock-ui` centraliza el listado/filtros de stock. La app que lo use debe exponer un backend local con el shape `items`, `total`, `filters` y `facets`, como `/api/products` en el dashboard o `/api/stock/products` en el chatbot Ollama.
+
 ### Seguridad del token
 
 El token nunca debe llegar al frontend. Implementar siempre un backend o middleware que tenga el token en variables de entorno y exponga una API propia al frontend.
@@ -126,8 +128,10 @@ Implementar retry con exponential backoff para errores 5xx. Para errores 4xx, no
 | `templates/node-typescript/src/services/productService.ts` | Normalización y búsqueda de productos |
 | `templates/node-typescript/src/types/product.ts` | Tipos TypeScript del modelo |
 | `examples/chatbot-stock/run.js` | Búsqueda por texto libre |
+| `examples/chatbot-ollama-app/` | Chatbot Ollama con knowledge base, contexto de stock y vista filtrable |
 | `examples/ecommerce-sync/run.js` | Mapeo para storefront |
 | `examples/create-order/run.js` | Placeholder de creación de pedido |
 | `examples/stock-dashboard-app/` | App completa React + Express |
+| `packages/stock-ui/` | UI React compartida para mostrar stock cacheado |
 | `shared/sample-responses/` | Mocks para desarrollo offline |
 | `shared/postman/` | Colección Postman para testing manual |
