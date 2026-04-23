@@ -3,11 +3,14 @@
   "private": true,
   "workspaces": [
     "templates/node-typescript",
-    "examples/stock-dashboard-app"
+    "examples/stock-dashboard-app",
+    "examples/chatbot-ollama-app"
   ],
   "scripts": {
-    "build": "npm run build --workspace ninox-node-typescript-template && npm run build --workspace @ninox/stock-dashboard-app",
+    "build": "npm run build --workspace ninox-node-typescript-template && npm run build --workspace @ninox/stock-dashboard-app && npm run build --workspace @ninox/chatbot-ollama-app",
     "dev": "npm run build --workspace ninox-node-typescript-template && npm run dev --workspace @ninox/stock-dashboard-app",
-    "start": "npm run build --workspace ninox-node-typescript-template && npm run start --workspace @ninox/stock-dashboard-app"
+    "dev:chatbot": "npm run dev --workspace @ninox/chatbot-ollama-app",
+    "start": "npm run build --workspace ninox-node-typescript-template && npm run start --workspace @ninox/stock-dashboard-app",
+    "start:chatbot": "npm run build --workspace @ninox/chatbot-ollama-app && npm run start --workspace @ninox/chatbot-ollama-app"
   }
 }
