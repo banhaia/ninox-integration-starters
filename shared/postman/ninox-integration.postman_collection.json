@@ -1,0 +1,662 @@
+{
+  "info": {
+    "name": "Ninox Integración de terceros",
+    "_postman_id": "5f1a8e59-2015-4b4e-9e9a-9e9a20150318",
+    "description": "Requests de la API de integración de terceros. Referencia: https://docs.ninox.com.ar/docs/terceros. El token va en la variable de entorno ninox_token (nunca lo guardes en la colección).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Configuración",
+      "item": [
+        {
+          "name": "Config de la integración",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/config",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "config"
+              ],
+              "query": []
+            }
+          }
+        },
+        {
+          "name": "Medios de pago",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/medios-pago",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "medios-pago"
+              ],
+              "query": []
+            }
+          }
+        },
+        {
+          "name": "Depósitos",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/depositos",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "depositos"
+              ],
+              "query": []
+            }
+          }
+        },
+        {
+          "name": "Empleados",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/empleados?sucursalId={{sucursal_id}}",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "empleados"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Puntos de venta",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/puntos-venta?sucursalId={{sucursal_id}}",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "puntos-venta"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catálogo",
+      "item": [
+        {
+          "name": "GetData (agrupado por artículo)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/Terceros/GetData",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "Terceros",
+                "GetData"
+              ],
+              "query": []
+            }
+          }
+        },
+        {
+          "name": "GetDataCurva (plano por variante)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/Terceros/GetDataCurva",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "Terceros",
+                "GetDataCurva"
+              ],
+              "query": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comprobantes",
+      "item": [
+        {
+          "name": "Crear pedido (reserva)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/Terceros/Pedido",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "Terceros",
+                "Pedido"
+              ],
+              "query": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ordenId\": 1,\n  \"numero\": 1,\n  \"detalle\": \"Pedido de prueba\",\n  \"usuario\": {\n    \"nombre\": \"Cliente Ejemplo\",\n    \"email\": \"ejemplo@example.com\",\n    \"dni\": \"\",\n    \"cuit\": \"\",\n    \"telefono\": \"\",\n    \"condicion\": 1\n  },\n  \"productos\": [\n    {\n      \"articuloId\": 1001,\n      \"precio\": 1000,\n      \"cantidad\": 1\n    }\n  ],\n  \"subtotal\": 1000,\n  \"descuento\": 0,\n  \"envio\": 0,\n  \"recargo\": 0,\n  \"total\": 1000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cancelar pedido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/Terceros/Pedido/cancelar?facturaid={{factura_id}}",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "Terceros",
+                "Pedido",
+                "cancelar"
+              ],
+              "query": [
+                {
+                  "key": "facturaid",
+                  "value": "{{factura_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear venta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/venta",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "venta"
+              ],
+              "query": []
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ordenId\": 2,\n  \"numero\": 2,\n  \"detalle\": \"Pedido de prueba\",\n  \"usuario\": {\n    \"nombre\": \"Cliente Ejemplo\",\n    \"email\": \"ejemplo@example.com\",\n    \"dni\": \"\",\n    \"cuit\": \"\",\n    \"telefono\": \"\",\n    \"condicion\": 1\n  },\n  \"productos\": [\n    {\n      \"articuloId\": 1001,\n      \"precio\": 1000,\n      \"cantidad\": 1\n    }\n  ],\n  \"subtotal\": 1000,\n  \"descuento\": 0,\n  \"envio\": 0,\n  \"recargo\": 0,\n  \"total\": 1000,\n  \"medioPago\": {\n    \"tipo\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Consultar comprobante",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/comprobante/{{factura_id}}",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "comprobante",
+                "{{factura_id}}"
+              ],
+              "query": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Exportaciones",
+      "item": [
+        {
+          "name": "Ventas · ítems (paginado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/exportar/ventaitems/paginado?sucursalId={{sucursal_id}}&anio=2026&mes=03&page=1&pageSize=500",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "exportar",
+                "ventaitems",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                },
+                {
+                  "key": "anio",
+                  "value": "2026"
+                },
+                {
+                  "key": "mes",
+                  "value": "03"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "500"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Ventas · totales (paginado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/exportar/ventatotales/paginado?sucursalId={{sucursal_id}}&anio=2026&mes=03&page=1&pageSize=500&incluirMediosPago=true",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "exportar",
+                "ventatotales",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                },
+                {
+                  "key": "anio",
+                  "value": "2026"
+                },
+                {
+                  "key": "mes",
+                  "value": "03"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "500"
+                },
+                {
+                  "key": "incluirMediosPago",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Compras · ítems (paginado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/exportar/compraitems/paginado?sucursalId={{sucursal_id}}&anio=2026&mes=03&page=1&pageSize=500",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "exportar",
+                "compraitems",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                },
+                {
+                  "key": "anio",
+                  "value": "2026"
+                },
+                {
+                  "key": "mes",
+                  "value": "03"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "500"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Compras · totales (paginado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/exportar/compratotales/paginado?sucursalId={{sucursal_id}}&anio=2026&mes=03&page=1&pageSize=500&incluirMediosPago=true",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "exportar",
+                "compratotales",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                },
+                {
+                  "key": "anio",
+                  "value": "2026"
+                },
+                {
+                  "key": "mes",
+                  "value": "03"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "500"
+                },
+                {
+                  "key": "incluirMediosPago",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Stock por depósito",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/exportar/stock?depositoId={{deposito_id}}",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "exportar",
+                "stock"
+              ],
+              "query": [
+                {
+                  "key": "depositoId",
+                  "value": "{{deposito_id}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Saldos de clientes (paginado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-NX-TOKEN",
+                "value": "{{ninox_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{ninox_base_url}}/integraciones/terceros/saldos/clientes/paginado?sucursalId={{sucursal_id}}&page=1&pageSize=100",
+              "host": [
+                "{{ninox_base_url}}"
+              ],
+              "path": [
+                "integraciones",
+                "terceros",
+                "saldos",
+                "clientes",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "sucursalId",
+                  "value": "{{sucursal_id}}"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "100"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

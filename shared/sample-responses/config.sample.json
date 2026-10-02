@@ -1,0 +1,15 @@
+{
+  "appId": 1,
+  "nombre": "Integración de ejemplo",
+  "multiDeposito": false,
+  "flujoDeposito": 0,
+  "depositos": [
+    { "depositoId": 1, "nombre": "Depósito Central", "direccion": "Calle Falsa 123", "eliminado": false, "sucursalId": 1, "sucursalNombre": "Casa Central", "default": true }
+  ],
+  "sucursalesExportacion": [{ "sucursalId": 1, "nombre": "Casa Central" }],
+  "puntoVentaId": 10,
+  "listaPrecioId": 1,
+  "listaPrecioRebajaId": null,
+  "facturacion": { "facturacionAutomatica": false, "puntoVentaFacturacionId": 0, "puntoVentaElectronicoId": null },
+  "mediosPago": [{ "tipoMedioPago": 1, "tipoMedioPagoIntegracion": null, "cuentaBancariaId": null, "electronica": false }]
+}

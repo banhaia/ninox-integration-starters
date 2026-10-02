@@ -1,0 +1,31 @@
+# Dependencias y builds
+node_modules/
+dist/
+coverage/
+
+# Datos de runtime (SQLite, caches, historial). NUNCA commitear: contienen datos reales del ERP.
+data/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+.codex-logs/
+
+# Datos locales de los examples
+examples/**/data/
+
+# Editor / SO
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/

@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 230 25% 96%;
+  --foreground: 225 18% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 225 18% 14%;
+  --primary: 252 59% 48%;
+  --primary-foreground: 230 25% 97%;
+  --secondary: 225 28% 90%;
+  --secondary-foreground: 225 18% 18%;
+  --muted: 225 20% 92%;
+  --muted-foreground: 225 10% 40%;
+  --accent: 262 72% 62%;
+  --accent-foreground: 230 25% 97%;
+  --border: 225 22% 84%;
+  --input: 225 22% 84%;
+  --ring: 252 59% 48%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  @apply min-h-screen bg-background text-foreground antialiased;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background-image:
+    radial-gradient(circle at top left, rgba(140, 120, 220, 0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(90, 120, 220, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.9));
+}
+
+#root {
+  @apply min-h-screen;
+}
+
+.surface {
+  @apply border border-white/40 bg-white/80 backdrop-blur-sm;
+}
+
+/* Chat bubble styles */
+.chat-bubble-user {
+  @apply rounded-2xl rounded-br-sm bg-primary px-4 py-3 text-primary-foreground;
+}
+
+.chat-bubble-assistant {
+  @apply rounded-2xl rounded-bl-sm bg-white/90 px-4 py-3 text-foreground shadow-soft;
+}
